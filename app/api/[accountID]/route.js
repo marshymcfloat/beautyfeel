@@ -1,5 +1,7 @@
 import Transaction from "../../../lib/models/Transaction";
 import { subDays } from "date-fns"; // Optional: Use date-fns for easier date manipulation
+import Branch from "../../../lib/models/Branch";
+import Service from "../../../lib/models/Service";
 
 export async function getTransactionsCount() {
   const today = new Date();
@@ -52,18 +54,28 @@ export async function getTopCustomers() {
   }
 }
 
+async function getBranches() {
+  return await Branch.find({});
+}
+
+async function getServices() {
+  return await Service.find({});
+}
+
 export async function GET() {
   const transactionCount = await getTransactionsCount();
   const transactions = await getTransactions();
   const topCustomers = await getTopCustomers();
-
-  console.log(topCustomers);
+  const branches = await getBranches();
+  const services = await getServices();
   return new Response(
     JSON.stringify({
       message: "successful",
       count: transactionCount,
       transactions,
       topCustomers,
+      branches,
+      services,
     }),
     {
       status: 200,

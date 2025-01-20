@@ -2,10 +2,13 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import { transactionSlice } from "./Slices/dashboardSlices";
-
+import { dashboardSlice } from "./Slices/dashboardSlices";
+import { transactionSlice } from "./Slices/TransactionSlice";
 const store = configureStore({
-  reducer: { transaction: transactionSlice.reducer },
+  reducer: {
+    dashboard: dashboardSlice.reducer,
+    transaction: transactionSlice.reducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

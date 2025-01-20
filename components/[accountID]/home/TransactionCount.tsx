@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/components/Provider/ReduxProvider";
 export default function TransactionCount() {
   const rightCount = useSelector(
-    (state: RootState) => state.transaction.transactions
+    (state: RootState) => state.dashboard.transactions
   );
 
   return (

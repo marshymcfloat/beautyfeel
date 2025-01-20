@@ -12,7 +12,7 @@ type TransactionsObject = {
 
 export default function RecentTransactions() {
   const transactions = useSelector(
-    (state: RootState) => state.transaction.transactions
+    (state: RootState) => state.dashboard.transactions
   );
 
   function formatDate(date: string) {

@@ -9,12 +9,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
+  login,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
+  login: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body className="overflow-y-hidden bg-customOffWhite">
+      <body className=" bg-customOffWhite">
         <ReduxProvider>
           <TanstackProvider>{children}</TanstackProvider>
         </ReduxProvider>

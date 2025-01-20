@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import OptionTab from "./OptionTab";
 
 type SideBarProps = {
@@ -10,14 +12,14 @@ type SideBarProps = {
 export default function SideBar() {
   const [visibility, setVisibility] = useState(true);
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const segments = pathname.split("/");
+  const accountID = segments[1];
+
+  const router = useRouter();
 
   function handleVisibility() {
     setVisibility((prev) => !prev);
-  }
-
-  function openCashierDialog() {
-    setVisibility(true);
-    console.log("meow");
   }
 
   useEffect(() => {
@@ -36,6 +38,10 @@ export default function SideBar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  function handleRouting(address: string) {
+    router.push(`/${accountID}/${address}`);
+  }
 
   return (
     <div
@@ -56,18 +62,31 @@ export default function SideBar() {
         beautyfeel
       </h1>
       <div className="flex flex-col my-6 items-center ">
-        <OptionTab label={"Home"} image={"/sidebar-icons/home-icon.png"} />
+        <OptionTab
+          label={"Home"}
+          image={"/sidebar-icons/home-icon.png"}
+          fn={handleRouting}
+        />
         <OptionTab
           label={"Cashier"}
           image={"/sidebar-icons/cashier-icon.png"}
-          fn={openCashierDialog}
+          fn={handleRouting}
         />
-        <OptionTab label={"Work"} image={"/sidebar-icons/work-icon.png"} />
+        <OptionTab
+          label={"Work"}
+          image={"/sidebar-icons/work-icon.png"}
+          fn={handleRouting}
+        />
         <OptionTab
           label={"Services"}
           image={"/sidebar-icons/services-icon.png"}
+          fn={handleRouting}
         />
-        <OptionTab label={"Log out"} image={"/sidebar-icons/logout-icon.png"} />
+        <OptionTab
+          label={"Log out"}
+          image={"/sidebar-icons/logout-icon.png"}
+          fn={handleRouting}
+        />
       </div>
     </div>
   );
