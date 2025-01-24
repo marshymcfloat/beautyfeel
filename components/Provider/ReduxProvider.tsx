@@ -4,10 +4,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { dashboardSlice } from "./Slices/dashboardSlices";
 import { transactionSlice } from "./Slices/TransactionSlice";
+import { modalSlice } from "./Slices/modalSlices"
 const store = configureStore({
   reducer: {
     dashboard: dashboardSlice.reducer,
     transaction: transactionSlice.reducer,
+    modal: modalSlice.reducer
   },
 });
 

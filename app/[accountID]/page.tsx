@@ -8,18 +8,24 @@ import SideBar from "@/components/[accountID]/sidebar/SideBar";
 import Sales from "@/components/[accountID]/home/Sales";
 import RecentTransactions from "@/components/[accountID]/home/RecentTransactions";
 import { dashboardActions } from "@/components/Provider/Slices/dashboardSlices";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useRef } from "react";
 import TopCustomer from "@/components/[accountID]/home/TopCustomer";
 import CreateTransaction from "@/components/[accountID]/cashier/CreateTransaction";
+import RecentLogs from "@/components/[accountID]/home/RecentLogs";
+import { RootState } from "@/components/Provider/ReduxProvider";
 
 interface DashboardPageProps {
   params: Promise<{ accountID: string }>;
 }
 
 export default function DashboardPage({ params }: DashboardPageProps) {
+  const [cashierOpen, setCashierOpen] = useState(false)
+
+
   const { accountID } = use(params);
   const dispatch = useDispatch();
+  const cashierVisible = useSelector((state: RootState) => state.modal.cashierVisibility)
 
   const getData = async () => {
     const response = await fetch(`/api/${accountID}`);
@@ -47,6 +53,8 @@ export default function DashboardPage({ params }: DashboardPageProps) {
     <main className="h-screen flex justify-center items-center">
       <SideBar />
 
+
+      {cashierVisible && <CreateTransaction />}
       <div className="w-[90%] h-[85%] flex ">
         <div className="flex flex-col w-[40%] mx-2 h-full">
           <div className="h-[30%] w-[90%] mx-auto flex justify-between items-center">
@@ -69,6 +77,7 @@ export default function DashboardPage({ params }: DashboardPageProps) {
           {data?.topCustomers && (
             <TopCustomer topCustomer={data.topCustomers} />
           )}
+          <RecentLogs />
         </div>
         <div className="h-full w-[40%] mx-2 bg-customBlack rounded-lg"></div>
       </div>

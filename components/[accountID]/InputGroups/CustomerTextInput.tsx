@@ -32,7 +32,7 @@ export default function CustomerTextInput() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedInput(customerInput);
-    }, 500);
+    }, 300);
     return () => clearTimeout(timer);
   }, [customerInput]);
 

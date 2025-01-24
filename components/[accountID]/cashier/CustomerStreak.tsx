@@ -5,7 +5,6 @@ import { RootState } from "@/components/Provider/ReduxProvider";
 export default function CustomerStreak() {
   const streak = useSelector((state: RootState) => state.transaction.streak);
 
-  console.log(streak);
   return (
     <div className="w-[80%] bg-customBlack h-[5px] mx-auto mt-8 flex justify-between items-center">
       <div

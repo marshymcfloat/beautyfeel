@@ -35,7 +35,7 @@ export default function SelectGroup({
         {options.map((option) => (
           <option
             key={option._id || option.name || option.title}
-            value={option.title || option.name}
+            value={option._id || option.name || option.title}
           >
             {option.title || option.name}
           </option>

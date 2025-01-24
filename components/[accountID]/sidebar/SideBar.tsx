@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { modalActions } from "@/components/Provider/Slices/modalSlices";
 import { usePathname } from "next/navigation";
 import OptionTab from "./OptionTab";
 
@@ -17,7 +19,7 @@ export default function SideBar() {
   const accountID = segments[1];
 
   const router = useRouter();
-
+  const dispatch = useDispatch()
   function handleVisibility() {
     setVisibility((prev) => !prev);
   }
@@ -41,6 +43,13 @@ export default function SideBar() {
 
   function handleRouting(address: string) {
     router.push(`/${accountID}/${address}`);
+  }
+
+  function handleCashierOpening(identifier: string): void {
+    if (identifier === 'cashier') {
+      dispatch(modalActions.setCashierVisibilityOn())
+    }
+
   }
 
   return (
@@ -70,7 +79,7 @@ export default function SideBar() {
         <OptionTab
           label={"Cashier"}
           image={"/sidebar-icons/cashier-icon.png"}
-          fn={handleRouting}
+          onClick={handleCashierOpening}
         />
         <OptionTab
           label={"Work"}
